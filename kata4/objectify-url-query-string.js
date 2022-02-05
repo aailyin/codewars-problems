@@ -50,3 +50,11 @@ function convertQueryToMap(query) {
     }
   }
 }
+
+// I liked this version from solutions:
+const convertQueryToMap = query =>
+  query.split(`&`).map(val => val.split(/[=.]/)).reduce((obj, arr) => {
+    const value = arr.pop();
+    arr.reduce((pre, val, idx) => pre[val] = ++idx === arr.length ? decodeURIComponent(value) : pre[val] || {}, obj);
+    return obj;
+  }, {});
